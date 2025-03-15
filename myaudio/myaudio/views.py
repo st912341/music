@@ -31,5 +31,4 @@ def text_to_speech(request):
 
         return FileResponse(open(audio_file, 'rb'), as_attachment=True, content_type='audio/mpeg')
 
-   return render(request, 'tts_app/index.html')
-
+    return render(request, 'tts_app/index.html')
