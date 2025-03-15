@@ -10,10 +10,31 @@
     <form action="" method="post">
         {% csrf_token %}
         <textarea name="text" rows="5" cols="50" placeholder="Enter your text here..."></textarea><br><br>
-        <button type="submit" name="voice" value="male">Male Voice</button>
-        <button type="submit" name="voice" value="female">Female Voice</button>
+
+        <!-- Dropdown for selecting voice type -->
+        <label for="voice">Select Voice:</label>
+        <select name="voice" id="voice">
+            <option value="male">Male Voice</option>
+            <option value="female">Female Voice</option>
+        </select><br><br>
+
+        <!-- Speed control for the speech rate -->
+        <label for="speed">Speed:</label>
+        <input type="range" name="speed" id="speed" min="50" max="300" step="10" value="140">
+        <span id="speed_value">140</span> WPM<br><br>
+
+        <button type="submit">Convert Text to Speech</button>
     </form>
 
-    <h3>Created by sourbh tiwari</h3>
+    <h3>Created by Sourbh Tiwari</h3>
+
+    <script>
+        // Update the displayed speed value when the range slider is adjusted
+        const speedSlider = document.getElementById('speed');
+        const speedValue = document.getElementById('speed_value');
+        speedSlider.addEventListener('input', function() {
+            speedValue.textContent = speedSlider.value;
+        });
+    </script>
 </body>
 </html>
