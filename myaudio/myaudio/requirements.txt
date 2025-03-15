@@ -1,0 +1,3 @@
+django
+pyttsx3
+gunicorn
