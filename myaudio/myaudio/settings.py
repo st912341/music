@@ -56,7 +56,7 @@ ROOT_URLCONF = 'myaudio.myaudio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-       'DIRS': [os.path.join(BASE_DIR, 'myaudio','myaudio', 'templates')],
+          'DIRS': [BASE_DIR / 'myaudio/templates']
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
