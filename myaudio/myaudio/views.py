@@ -1,38 +1,35 @@
-import time
-from gtts import gTTS
-from django.http import FileResponse
+import pyttsx3
 from django.shortcuts import render
+from django.http import FileResponse
 import os
-import requests
 
 def text_to_speech(request):
     if request.method == "POST":
         text = request.POST.get("text")
         voice_type = request.POST.get("voice")  # "male" or "female"
-        speed = int(request.POST.get("speed", 140))  # Default speed (WPM)
+        speed = int(request.POST.get("speed", 140))  # Default speed 140 WPM
 
-        # Set language (en for English) and create the speech
-        language = 'en'
-        slow = False  # Default to False (normal speed)
-        if speed < 100:
-            slow = True  # Slow down if speed is below 100
+        # Initialize pyttsx3 engine
+        engine = pyttsx3.init()
 
-        # Retry logic
-        retries = 3
-        delay = 2  # seconds between retries
-        for i in range(retries):
-            try:
-                tts = gTTS(text=text, lang=language, slow=slow)
-                audio_file = "tts_output.mp3"
-                tts.save(audio_file)
-                return FileResponse(open(audio_file, 'rb'), as_attachment=True, content_type='audio/mpeg')
-            except requests.exceptions.HTTPError as e:
-                if e.response.status_code == 429:
-                    # Wait before retrying if rate limit is hit
-                    time.sleep(delay)
-                    continue  # Retry the request
-                else:
-                    raise e  # Raise the exception if it's not a 429
-        return render(request, 'tts_app/index.html', {"error": "Rate limit exceeded. Please try again later."})
+        # Get available voices
+        voices = engine.getProperty('voices')
+
+        # Set voice based on user selection
+        if voice_type == "male":
+            engine.setProperty('voice', voices[0].id)  # Male voice
+        elif voice_type == "female":
+            engine.setProperty('voice', voices[1].id)  # Female voice
+
+        # Set speech speed
+        engine.setProperty('rate', speed)  
+
+        # Save the audio file
+        audio_file = "tts_output.mp3"
+        engine.save_to_file(text, audio_file)
+        engine.runAndWait()
+
+        # Serve the audio file as a response
+        return FileResponse(open(audio_file, 'rb'), as_attachment=True, content_type='audio/mpeg')
 
     return render(request, 'tts_app/index.html')
