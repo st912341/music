@@ -1,3 +1,4 @@
 django
 pyttsx3
+gTTS
 gunicorn
