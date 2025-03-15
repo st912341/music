@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech Converter</title>
+</head>
+<body>
+    <h2>Enter Text for Speech Conversion</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <textarea name="text" rows="5" cols="50" placeholder="Enter your text here..."></textarea><br><br>
+        <button type="submit" name="voice" value="male">Male Voice</button>
+        <button type="submit" name="voice" value="female">Female Voice</button>
+    </form>
+
+    <h3>Created by sourbh tiwari</h3>
+</body>
+</html>
