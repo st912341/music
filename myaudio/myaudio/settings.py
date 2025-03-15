@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'myaudio.urls'
+ROOT_URLCONF = 'myaudio.myaudio.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myaudio.wsgi.application'
+WSGI_APPLICATION = 'myaudio.myaudio.wsgi.application'
 
 
 # Database
